@@ -1,0 +1,100 @@
+{
+  "version": 4,
+  "terraform_version": "1.14.3",
+  "serial": 4,
+  "lineage": "2be19fb0-406c-1080-e591-374356ed51b8",
+  "outputs": {
+    "role_arn": {
+      "value": "arn:aws:iam::906513712720:role/github-actions-oidc-role",
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "aws_iam_openid_connect_provider",
+      "name": "github",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::906513712720:oidc-provider/token.actions.githubusercontent.com",
+            "client_id_list": [
+              "sts.amazonaws.com"
+            ],
+            "id": "arn:aws:iam::906513712720:oidc-provider/token.actions.githubusercontent.com",
+            "tags": null,
+            "tags_all": {},
+            "thumbprint_list": [
+              "6938fd4d98bab03faadb97b34396831e3780aea1"
+            ],
+            "url": "token.actions.githubusercontent.com"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "github_oidc_role",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::906513712720:role/github-actions-oidc-role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRoleWithWebIdentity\",\"Condition\":{\"StringLike\":{\"token.actions.githubusercontent.com:sub\":\"repo:Kathir2710/github-oidc-terraform:*\"}},\"Effect\":\"Allow\",\"Principal\":{\"Federated\":\"arn:aws:iam::906513712720:oidc-provider/token.actions.githubusercontent.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2026-01-28T11:48:28Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "github-actions-oidc-role",
+            "inline_policy": [],
+            "managed_policy_arns": [],
+            "max_session_duration": 3600,
+            "name": "github-actions-oidc-role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": null,
+            "tags_all": {},
+            "unique_id": "AROA5GEDNQZIFMQQ4HKO3"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_openid_connect_provider.github"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "admin",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "github-actions-oidc-role-20260128114829719400000001",
+            "policy_arn": "arn:aws:iam::aws:policy/AdministratorAccess",
+            "role": "github-actions-oidc-role"
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_openid_connect_provider.github",
+            "aws_iam_role.github_oidc_role"
+          ]
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
